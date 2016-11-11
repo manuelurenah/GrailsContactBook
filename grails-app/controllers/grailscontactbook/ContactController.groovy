@@ -4,91 +4,91 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
-class UserController {
+class ContactController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond User.list(params), model:[userCount: User.count()]
+        respond Contact.list(params), model:[contactCount: Contact.count()]
     }
 
-    def show(User user) {
-        respond user
+    def show(Contact contact) {
+        respond contact
     }
 
     def create() {
-        respond new User(params)
+        respond new Contact(params)
     }
 
     @Transactional
-    def save(User user) {
-        if (user == null) {
+    def save(Contact contact) {
+        if (contact == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }
 
-        if (user.hasErrors()) {
+        if (contact.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond user.errors, view:'create'
+            respond contact.errors, view:'create'
             return
         }
 
-        user.save flush:true
+        contact.save flush:true
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), user.id])
-                redirect user
+                flash.message = message(code: 'default.created.message', args: [message(code: 'contact.label', default: 'Contact'), contact.id])
+                redirect contact
             }
-            '*' { respond user, [status: CREATED] }
+            '*' { respond contact, [status: CREATED] }
         }
     }
 
-    def edit(User user) {
-        respond user
+    def edit(Contact contact) {
+        respond contact
     }
 
     @Transactional
-    def update(User user) {
-        if (user == null) {
+    def update(Contact contact) {
+        if (contact == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }
 
-        if (user.hasErrors()) {
+        if (contact.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond user.errors, view:'edit'
+            respond contact.errors, view:'edit'
             return
         }
 
-        user.save flush:true
+        contact.save flush:true
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), user.id])
-                redirect user
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'contact.label', default: 'Contact'), contact.id])
+                redirect contact
             }
-            '*'{ respond user, [status: OK] }
+            '*'{ respond contact, [status: OK] }
         }
     }
 
     @Transactional
-    def delete(User user) {
+    def delete(Contact contact) {
 
-        if (user == null) {
+        if (contact == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }
 
-        user.delete flush:true
+        contact.delete flush:true
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), user.id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'contact.label', default: 'Contact'), contact.id])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
@@ -98,7 +98,7 @@ class UserController {
     protected void notFound() {
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'contact.label', default: 'Contact'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
