@@ -15,31 +15,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><g:layoutTitle default="Prueba de BootStrap..."/></title>
+    <title><g:layoutTitle default="Grails Contact Book"/></title>
 
-    %{--
-    Este bloque representa los recursos utilizados por defecto en el template, comentandolo
-    con el objetivo de utilizar los asset-pipeline.
-    --}%
-    <!-- Bootstrap Core CSS -->
-    %{--<link href="css/bootstrap.min.css" rel="stylesheet">--}%
-    <!-- Custom CSS -->
-    %{--<link href="css/sb-admin.css" rel="stylesheet">--}%
-    <!-- Custom Fonts -->
-    %{--<link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">--}%
+    <asset:stylesheet src="application.css"/>
+    <asset:javascript src="application.js" />
 
-    %{--
-    Llamando los recursos de una manera más comoda.
-    --}%
-    <asset:stylesheet src="principal.css"/>
-    <asset:javascript src="principal.js" />
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <g:layoutHead/>
 
     %{-- Para incluir otras recursos.--}%
@@ -61,127 +41,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <g:link uri="/bootStrap" class="navbar-brand">Aplicación Basada en Grails</g:link>
+            <g:link uri="/" class="navbar-brand">Contact Book</g:link>
         </div>
 
         <!-- Top Menu Items -->
-        <ul class="nav navbar-right top-nav">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu message-dropdown">
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                <span class="pull-left">
-                                    <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading">
-                                        %{--Como puedo tomar rapidamente el usuario lougeado.--}%
-                                        <strong><sec:username/></strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Información de ejemplo...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-footer">
-                        <a href="#">Read All New Messages</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu alert-dropdown">
-                    <li>
-                        <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">View All</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><sec:username/><b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        %{--
-                        Para acceder directamente al logout debe ser una llamada POST.
-                        Puedo llamarlo desde un controlador, via el servicio de Spring.
-                        --}%
-                        <form name="submitForm" method="POST" action="${createLink(controller: 'logout')}">
-                            <input type="hidden" name="" value="">
-                        </form>
-                        <a href="javascript:document.submitForm.submit()"><i class="fa fa-fw fa-power-off"></i>Log Out</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav side-nav">
-                <li>
-                    <g:link uri="/bootStrap"><i class="fa fa-fw fa-dashboard"></i> Inicio </g:link>
-                </li>
-                <li>
-                    <g:link controller="formularios" action="index"><i class="fa fa-fw fa-edit"></i> Formularios</g:link>
-                </li>
-                <li>
-                    <g:link controller="grupoAsignatura" action="index"><i class="fa fa-fw fa-bar-chart-o"></i> Estudiante Scaffold</g:link>
-                </li>
-                <li>
-                    <g:link controller="zonaAdmin" action="index"><i class="fa fa-fw fa-bar-chart-o"></i> Zona Admin</g:link>
-                </li>
-                <li>
-                    <g:link controller="miControladorRest" action="pruebaChartGoogle"><i class="fa fa-fw fa-bar-chart-o"></i>Prueba Google Chart</g:link>
-                </li>
-                <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Casos Varios <i class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="demo" class="collapse">
-                        <li>
-                            <g:link controller="estudiante" action="listarEstudiantesJson" target="_blank">Render a JSON</g:link >
-                        </li>
-                        <li>
-                            <g:link controller="estudiante" action="listarEstudiantesXml" target="_blank">Render a XML</g:link >
-                        </li>
-                        <li>
-                            <g:link controller="estudiante" action="consultaEstudiante">Consultar Estudiante</g:link >
-                        </li>
-                        <li>
-                            <g:link controller="estudiante" action="noEntraPorFiltro">Bloqueo por Filtro</g:link >
-                        </li>
-                    </ul>
-                </li>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><g:link controller="department" action="index">Departments</g:link></li>
+                <li><g:link controller="category" action="index">Categories</g:link></li>
+                <li><g:link controller="user" action="index">Users</g:link></li>
             </ul>
-        </div>
-        <!-- /.navbar-collapse -->
     </nav>
 
     <div id="page-wrapper">
@@ -192,22 +61,31 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">
-                        <g:pageProperty name="page.encabezado">
-
-                        </g:pageProperty>
+                        <g:pageProperty name="page.header"/>
                     </h1>
-
-                    <ol class="breadcrumb">
-                        <g:pageProperty name="page.breadcrumb">
-
-                        </g:pageProperty>
-                    </ol>
                 </div>
             </div>
             <!-- /.row -->
-            <g:pageProperty name="page.contenido">
 
-            </g:pageProperty>
+            <!-- Page Body -->
+            <div class="container">
+                <g:pageProperty name="page.body"/>
+            </div>
+            <!-- /.container -->
+
+            <!-- Page Footer -->
+            <footer class="footer">
+                <div class="container">
+                    <p class="text-muted">
+                        Luis E. Rojas
+                        Manuel E. Ureña |
+                        2016 &copy All Rights Reserved
+                    </p>
+                </div>
+                <!-- /.container -->
+            </footer>
+            <!-- /.footer -->
+
         </div>
         <!-- /.container-fluid -->
 
@@ -216,15 +94,6 @@
 
 </div>
 <!-- /#wrapper -->
-
-%{--
-Comentado el uso de JS directo y utilizandolo por el asset-pipeline
---}%
-<!-- jQuery Version 1.11.0 -->
-%{--<script src="js/jquery-1.11.0.js"></script>--}%
-
-<!-- Bootstrap Core JavaScript -->
-%{--<script src="js/bootstrap.min.js"></script>--}%
 
 </body>
 </html>

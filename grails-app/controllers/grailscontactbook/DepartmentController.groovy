@@ -10,7 +10,7 @@ class DepartmentController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Department.list(params), model:[departmentCount: Department.count()]
+        respond Department.list(params), model: [departmentCount: Department.count()]
     }
 
     def show(Department department) {
@@ -31,11 +31,11 @@ class DepartmentController {
 
         if (department.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond department.errors, view:'create'
+            respond department.errors, view: 'create'
             return
         }
 
-        department.save flush:true
+        department.save flush: true
 
         request.withFormat {
             form multipartForm {
@@ -60,18 +60,18 @@ class DepartmentController {
 
         if (department.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond department.errors, view:'edit'
+            respond department.errors, view: 'edit'
             return
         }
 
-        department.save flush:true
+        department.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'department.label', default: 'Department'), department.id])
                 redirect department
             }
-            '*'{ respond department, [status: OK] }
+            '*' { respond department, [status: OK] }
         }
     }
 
@@ -84,14 +84,14 @@ class DepartmentController {
             return
         }
 
-        department.delete flush:true
+        department.delete flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'department.label', default: 'Department'), department.id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -101,7 +101,7 @@ class DepartmentController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'department.label', default: 'Department'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }

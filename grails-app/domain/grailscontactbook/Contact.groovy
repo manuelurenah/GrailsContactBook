@@ -11,7 +11,7 @@ class Contact {
     String cellphone
 
     static hasMany = [departments: Department]
-    static belongsTo = [category: Category]
+    static belongsTo = [dept: Department]
 
     static constraints = {
         firstname blank: false

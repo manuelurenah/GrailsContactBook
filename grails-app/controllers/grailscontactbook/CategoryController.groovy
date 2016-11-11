@@ -10,7 +10,7 @@ class CategoryController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Category.list(params), model:[categoryCount: Category.count()]
+        respond Category.list(params), model: [categoryCount: Category.count()]
     }
 
     def show(Category category) {
@@ -31,11 +31,11 @@ class CategoryController {
 
         if (category.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond category.errors, view:'create'
+            respond category.errors, view: 'create'
             return
         }
 
-        category.save flush:true
+        category.save flush: true
 
         request.withFormat {
             form multipartForm {
@@ -60,18 +60,18 @@ class CategoryController {
 
         if (category.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond category.errors, view:'edit'
+            respond category.errors, view: 'edit'
             return
         }
 
-        category.save flush:true
+        category.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'category.label', default: 'Category'), category.id])
                 redirect category
             }
-            '*'{ respond category, [status: OK] }
+            '*' { respond category, [status: OK] }
         }
     }
 
@@ -84,14 +84,14 @@ class CategoryController {
             return
         }
 
-        category.delete flush:true
+        category.delete flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'category.label', default: 'Category'), category.id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -101,7 +101,7 @@ class CategoryController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'category.label', default: 'Category'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }
