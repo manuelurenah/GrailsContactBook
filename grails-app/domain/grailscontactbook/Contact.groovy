@@ -9,6 +9,7 @@ class Contact {
     String address
     String job
     String cellphone
+    Category category
 
     Date dateCreated
     Date lastUpdated

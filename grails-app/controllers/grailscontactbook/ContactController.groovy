@@ -1,52 +1,107 @@
 package grailscontactbook
 
-import org.springframework.validation.BindingResult
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+@Transactional(readOnly = true)
 class ContactController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index = {
-        redirect action: "list"
-    }
-    def create = {}
-
-    def save = {
-        def contact = new Contact(firstname: params.firstname, lastname: params.lastname, email: params.email,
-                telephone: params.telephone, cellphone: params.cellphone)
-        contact.save flush: true, failOnError: true
-        redirect action: "show", id: contact.id
+    def index(Integer max) {
+        params.max = Math.min(max ?: 10, 100)
+        respond Contact.list(params), model:[contactCount: Contact.count()]
     }
 
-    def edit = {
-        def contact = Contact.get(params.id)
-        [contact: contact]
+    def show(Contact contact) {
+        respond contact
     }
 
-    def update = {
-        def contact = Contact.get(params.id)
-        contact.properties = params as BindingResult
-        contact.save flush: true, failOnError: true
-        redirect action: "show", id: params.id
+    def create() {
+        respond new Contact(params)
     }
 
-    def show = {
-        def contact = Contact.get(params.id)
-        [contact: contact]
+    @Transactional
+    def save(Contact contact) {
+        if (contact == null) {
+            transactionStatus.setRollbackOnly()
+            notFound()
+            return
+        }
+
+        if (contact.hasErrors()) {
+            transactionStatus.setRollbackOnly()
+            respond contact.errors, view:'create'
+            return
+        }
+
+        contact.save flush:true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'contact.label', default: 'Contact'), contact.id])
+                redirect contact
+            }
+            '*' { respond contact, [status: CREATED] }
+        }
     }
 
-    def list = {
-        def contacts = Contact.list()
-        [contacts: contacts]
+    def edit(Contact contact) {
+        respond contact
     }
 
-    def delete = {
-        def contact = Contact.get(params.id)
-        contact.delete flush: true, failOnError: true
-        redirect action: "index"
+    @Transactional
+    def update(Contact contact) {
+        if (contact == null) {
+            transactionStatus.setRollbackOnly()
+            notFound()
+            return
+        }
+
+        if (contact.hasErrors()) {
+            transactionStatus.setRollbackOnly()
+            respond contact.errors, view:'edit'
+            return
+        }
+
+        contact.save flush:true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'contact.label', default: 'Contact'), contact.id])
+                redirect contact
+            }
+            '*'{ respond contact, [status: OK] }
+        }
     }
 
+    @Transactional
+    def delete(Contact contact) {
+
+        if (contact == null) {
+            transactionStatus.setRollbackOnly()
+            notFound()
+            return
+        }
+
+        contact.delete flush:true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'contact.label', default: 'Contact'), contact.id])
+                redirect action:"index", method:"GET"
+            }
+            '*'{ render status: NO_CONTENT }
+        }
+    }
+
+    protected void notFound() {
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'contact.label', default: 'Contact'), params.id])
+                redirect action: "index", method: "GET"
+            }
+            '*'{ render status: NOT_FOUND }
+        }
+    }
 }

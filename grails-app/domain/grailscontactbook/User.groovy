@@ -5,11 +5,10 @@ class User {
     String username
     String password
     boolean isAdmin
+    Department department
 
     Date dateCreated
     Date lastUpdated
-
-    static belongsTo = [department: Department]
 
     static constraints = {
         username blank: false, unique: true

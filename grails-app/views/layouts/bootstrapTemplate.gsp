@@ -40,10 +40,18 @@
                 <!-- Top Menu Items -->
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><g:link controller="department" action="index">Departments</g:link></li>
-                        <li><g:link controller="category" action="index">Categories</g:link></li>
-                        <li><g:link controller="user" action="index">Users</g:link></li>
-                        <li><g:link controller="contact" action="index">Contacts</g:link></li>
+                        <g:if test="${session.currentUser}">
+                            <g:if test="${session.currentUser.isAdmin}">
+                                <li><g:link controller="department" action="index">Departments</g:link></li>
+                                <li><g:link controller="category" action="index">Categories</g:link></li>
+                                <li><g:link controller="user" action="index">Users</g:link></li>
+                            </g:if>
+                            <li><g:link controller="contact" action="index">Contacts</g:link></li>
+                            <li><g:link controller="user" action="logout">Logout</g:link></li>
+                        </g:if>
+                        <g:else>
+                            <li><g:link controller="user" action="login">Login</g:link></li>
+                        </g:else>
                     </ul>
                 </div>
             </nav>
