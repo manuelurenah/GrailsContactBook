@@ -10,6 +10,9 @@ class Contact {
     String job
     String cellphone
 
+    Date dateCreated
+    Date lastUpdated
+
     static hasMany = [departments: Department]
     static belongsTo = [dept: Department]
 
@@ -19,5 +22,8 @@ class Contact {
         email email: true, unique: true
         telephone minSize: 10, maxSize: 14
         cellphone minSize: 10, maxSize: 14
+        address nullable: true
+        job nullable: true
+        dept nullable: true
     }
 }
