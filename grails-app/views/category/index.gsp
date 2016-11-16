@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'category.label', default: 'Category')}" />
-        <title><g:message code="default.list.label" args="[entityName]" /></title>
-    </head>
-    <body>
-        <a href="#list-category" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-        <div class="nav" role="navigation">
-            <ul>
-                <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-            </ul>
+<g:applyLayout name="bootstrapTemplate">
+    <content tag="body">
+        <div class="jumbotron text-center">
+            <h1>Categories</h1>
         </div>
+
+        <div class="row">
+            <div class="col-xs-3">
+                <a class="btn btn-md btn-primary" href="/category/create">Add New Category</a>
+            </div>
+        </div>
+        <br />
+
         <div id="list-category" class="content scaffold-list" role="main">
-            <h1><g:message code="default.list.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
@@ -24,5 +21,5 @@
                 <g:paginate total="${categoryCount ?: 0}" />
             </div>
         </div>
-    </body>
-</html>
+    </content>
+</g:applyLayout>
