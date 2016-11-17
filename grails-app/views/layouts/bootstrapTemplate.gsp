@@ -23,6 +23,7 @@
 <body>
 
     <div id="wrapper">
+        <!-- Page Header -->
         <header id="site-header">
             <!-- Navigation -->
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -42,6 +43,7 @@
                     <ul class="nav navbar-nav">
                         <g:if test="${session.currentUser}">
                             <g:if test="${session.currentUser.isAdmin}">
+                                <li><g:link action="index">Admin</g:link></li>
                                 <li><g:link controller="department" action="index">Departments</g:link></li>
                                 <li><g:link controller="category" action="index">Categories</g:link></li>
                                 <li><g:link controller="user" action="index">Users</g:link></li>
@@ -56,9 +58,10 @@
                 </div>
             </nav>
         </header>
+        <!-- /#site-header -->
 
+        <!-- Page Body -->
         <main id="site-main">
-            <!-- Page Body -->
             <div class="container-fluid">
                 <g:pageProperty name="page.body"/>
             </div>
@@ -77,7 +80,7 @@
             </div>
             <!-- /.container-fluid -->
         </footer>
-        <!-- /.footer -->
+        <!-- /#site-footer -->
 
     </div>
     <!-- /#wrapper -->
