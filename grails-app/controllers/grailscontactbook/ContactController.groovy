@@ -10,9 +10,7 @@ class ContactController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        User current = session.currentUser
-        def contactsList = Contact.findAllByDepartments(current.departments, params)
-        respond contactList, model:[contactCount: Contact.count()]
+        respond Contact.list(params), model:[contactCount: Contact.count()]
     }
 
     def show(Contact contact) {
@@ -67,7 +65,7 @@ class ContactController {
             return
         }
 
-        contact.modifiedBy = session.currentUser.username
+        contact.createdBy = session.currentUser.username
         contact.save flush:true
 
         request.withFormat {
