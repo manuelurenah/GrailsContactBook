@@ -9,13 +9,14 @@ class Contact {
     String address
     String job
     String cellphone
-    Category category
+    String createdBy
+    String modifiedBy
 
     Date dateCreated
     Date lastUpdated
 
+    static belongsTo = [category: Category]
     static hasMany = [departments: Department]
-    static belongsTo = [dept: Department]
 
     static constraints = {
         firstname blank: false
@@ -25,6 +26,16 @@ class Contact {
         cellphone minSize: 10, maxSize: 14
         address nullable: true
         job nullable: true
-        dept nullable: true
+        createdBy nullable: true, display: false
+        modifiedBy nullable: true, display: false
+    }
+
+    static mapping = {
+        departments joinTable: [name: 'DepartmentContacts', key: 'contact_id']
+    }
+
+    @Override
+    String toString() {
+        return firstname + ' ' + lastname
     }
 }

@@ -35,6 +35,7 @@ class CategoryController {
             return
         }
 
+        category.createdBy = session.currentUser.username
         category.save flush:true
 
         request.withFormat {
@@ -64,6 +65,7 @@ class CategoryController {
             return
         }
 
+        category.modifiedBy = session.currentUser.username
         category.save flush:true
 
         request.withFormat {

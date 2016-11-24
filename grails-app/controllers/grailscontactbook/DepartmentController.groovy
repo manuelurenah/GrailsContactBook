@@ -35,6 +35,7 @@ class DepartmentController {
             return
         }
 
+        department.createdBy = session.currentUser.username
         department.save flush:true
 
         request.withFormat {
@@ -64,6 +65,7 @@ class DepartmentController {
             return
         }
 
+        department.modifiedBy = session.currentUser.username
         department.save flush:true
 
         request.withFormat {

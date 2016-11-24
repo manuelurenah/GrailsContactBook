@@ -11,7 +11,6 @@
     <title><g:layoutTitle default="Grails Contact Book"/></title>
 
     <asset:stylesheet src="application.css"/>
-    <asset:javascript src="application.js" />
 
     <g:layoutHead/>
 
@@ -84,6 +83,8 @@
 
     </div>
     <!-- /#wrapper -->
+
+    <asset:javascript src="application.js" />
 
 </body>
 </html>

@@ -5,7 +5,8 @@ class User {
     String username
     String password
     boolean isAdmin
-    Department department
+
+    static hasMany = [departments: Department]
 
     Date dateCreated
     Date lastUpdated
@@ -13,6 +14,14 @@ class User {
     static constraints = {
         username blank: false, unique: true
         password blank: false
-        department nullable: true
+    }
+
+    static mapping = {
+        departments joinTable: [name: 'DepartmentUsers', key: 'user_id']
+    }
+
+    @Override
+    String toString() {
+        return username
     }
 }
